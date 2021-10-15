@@ -110,3 +110,9 @@ python3 -m http.server 42069
 ```
 
 And then open <http://localhost:42069>
+
+## To do
+
+* Note: video console will never support true color: <https://github.com/copy/v86/issues/539>
+* Hide video console?
+* Save state so that it comes up instantly?
