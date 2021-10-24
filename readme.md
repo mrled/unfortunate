@@ -6,9 +6,6 @@ Cursed Linux terminal in the browser
 
 Currently much of the build process is manual
 
-
-
-
 ### Building the `browser-vm` iso image
 
 Clone <https://github.com/humphd/browser-vm>.
@@ -16,6 +13,8 @@ Clone <https://github.com/humphd/browser-vm>.
 To reconfigure, the instructions say to run docker with `--rm`, but don't do this and you can run the customization steps (per below) and then make. And you can do the same thing over and over again without killing your docker container. This lets you iterate much more quickly as rebuilding only takes a minute or two, at least if all you're changing is in the filesystem overlay.
 
 The best thing to do is NOT to run the singular command, but run the one that lets you do `make menuconfig`, and **do not** use the `--rm` argument from the instructions. Even if you don't want to make any menuconfig changes, doing it that way lets you keep the build state, so you can add files to the rootfs and type `make` again and it'll only take a minute or so.
+
+That said, buildroot doesn't detect when a full rebuild is needed - you need to figure this out yourself. See <https://buildroot.org/downloads/manual/manual.html#full-rebuild>.
 
 I run a command like this:
 
@@ -33,7 +32,7 @@ make savedefconfig
 make linux-menuconfig
 #... edit as needed
 make linux-savedefconfig
-# Copy any necessary files in to $PWD/buildroot-v86/board/v86/rootfs_overlay
+# ... copy any necessary files in to $PWD/buildroot-v86/board/v86/rootfs_overlay
 make
 ```
 
@@ -41,17 +40,26 @@ Note that they next step - cross-compiling the golang binaries - needs to be don
 
 It looks like that saves the original config and your `make menuconfig` and `make linux-menuconfig` will use the original config as a base. So I am only noting the changes I am making as of 20211014. Also note that the actual config has been modified a bit from the instructions, for instance it uses a pentium pro rather than a pentium M, so you should trust the actual config over the instructions.
 
-My changes to `make menuconfig`:
+### Reusing the build container
 
-* games:
-  * ascii_invaders
-  * sl
-* utilities
-  * screen
+The best way to reuse the build container is to keep the container in the foreground --
+that is, don't exit from the shell started by `docker run`.
+If you exit, you won't be able to restart the container.
 
-My changes to `make linux-menuconfig`:
+However, you can [commit the container to a new image and run that](https://stackoverflow.com/a/49204476/868206),
+which means you won't lose your build artifacts.
 
-* Disable the PCI debugging that is enabled by upstream
+```
+> docker exec -it build-v86-menu-config -v $PWD/dist:/build     -v $PWD/buildroot-v86/:/buildroot-v86 bash
+Error response from daemon: Container 6dc41679269ff6c50580f06932a1ecf0774809d81b4fcae5d42afc7668038db3 is not running
+
+> docker commit 6dc41679269ff6c50580f06932a1ecf0774809d81b4fcae5d42afc7668038db3
+sha256:d307f74458d6479d4a2515e0046bd6385fae62d8f70faa997906f8157b2e7885
+
+> docker run  -v $PWD/dist:/build -v $PWD/buildroot-v86/:/buildroot-v86 --entrypoint bash -it d307f74458d6479d4a2515e0046bd6385fae62d8f70faa997906f8157b2e7885
+```
+
+You do have to remember to delete your committed container so that it doesn't use up space on your filesystem forever, though.
 
 ### Cross-compiling go fortune/coloration binaries
 
