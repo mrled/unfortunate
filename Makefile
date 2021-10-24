@@ -43,13 +43,23 @@ serve: all
 # as by default we check out an HTTP remote so that others can clone it.
 # Finally, we remove everything else, add all the files we built, commit and force push.
 
+REPO_BUILT_BRANCH_BASE_COMMIT = 4f9b098ba9e4168c5abc196127037e20494b25cd
+
 .PHONY: publish
 publish: all
-	cd $(CURDIR)/public && \
-		(git remote | grep -q sshorigin || git remote add sshorigin git@github.com:mrled/unfortunate.git) && \
-		git add -A && \
-		git commit -m "Publishing 'unfortunate' on $(date)..." && \
-		git push -f -u sshorigin built:built
+	cd $(CURDIR)/public && (git remote | grep -q sshorigin || git remote add sshorigin git@github.com:mrled/unfortunate.git)
+	cd $(CURDIR)/public && (git branch -D new-built || echo "No branch 'new-built', continuing...")
+	cd $(CURDIR)/public && git checkout -b new-built
+	cd $(CURDIR)/public && (git branch | grep -q "^  built" && git branch -D built || echo "No branch 'built', continuing...")
+	cd $(CURDIR)/public && git add -A
+	cd $(CURDIR)/public && git commit -m "Publishing 'unfortunate' on $(shell date)..."
+	cd $(CURDIR)/public && git checkout -b built ${REPO_BUILT_BRANCH_BASE_COMMIT}
+	# cd $(CURDIR)/public && git cherry-pick new-built
+	cd $(CURDIR)/public && git reset --hard new-built && git reset ${REPO_BUILT_BRANCH_BASE_COMMIT}
+	cd $(CURDIR)/public && git add -A
+	cd $(CURDIR)/public && git commit -m "Publishing 'unfortunate' on $(shell date)..."
+	cd $(CURDIR)/public && git branch -D new-built
+	cd $(CURDIR)/public && git push -f -u sshorigin built:built
 
 #### Misc items that belong in the browser-vm iso root filesystem overlay
 
