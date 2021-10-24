@@ -1,0 +1,13 @@
+[submodule "browser-vm"]
+	path = browser-vm
+	url = https://github.com/mrled/unfortunate-browser-vm
+[submodule "v86"]
+	path = v86
+	url = https://github.com/copy/v86
+[submodule "fortunate"]
+	path = fortunate
+	url = https://github.com/mrled/fortunate
+[submodule "public"]
+	path = public
+	url = https://github.com/mrled/unfortunate
+	branch = built

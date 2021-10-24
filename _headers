@@ -1,0 +1,7 @@
+# The Netlify _headers file
+# <https://docs.netlify.com/routing/headers/>
+
+/*
+    # Allow CORS to any domain
+    # Nothing we do here has any creds on it, so we can allow embedding
+    Access-Control-Allow-Origin: *
