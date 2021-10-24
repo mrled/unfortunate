@@ -54,7 +54,6 @@ publish: all
 	cd $(CURDIR)/public && git add -A
 	cd $(CURDIR)/public && git commit -m "Publishing 'unfortunate' on $(shell date)..."
 	cd $(CURDIR)/public && git checkout -b built ${REPO_BUILT_BRANCH_BASE_COMMIT}
-	# cd $(CURDIR)/public && git cherry-pick new-built
 	cd $(CURDIR)/public && git reset --hard new-built && git reset ${REPO_BUILT_BRANCH_BASE_COMMIT}
 	cd $(CURDIR)/public && git add -A
 	cd $(CURDIR)/public && git commit -m "Publishing 'unfortunate' on $(shell date)..."
