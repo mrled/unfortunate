@@ -66,7 +66,7 @@ ${OVERLAY}/usr/local/bin:
 	mkdir -p ${OVERLAY}/usr/local/bin
 ${OVERLAY}/usr/share/fortune:
 	mkdir -p ${OVERLAY}/usr/share/fortune
-${OVERLAY}/etc/profile.d/99.fortune.sh:
+${OVERLAY}/etc/profile.d/99.fortune.sh: profile.d.fortunedb.sh
 	cp profile.d.fortunedb.sh ${OVERLAY}/etc/profile.d/99.fortune.sh
 ${OVERLAY}/usr/local/bin/unfortunate: usr.local.bin.unfortunate.sh ${OVERLAY}/usr/local/bin
 	cp usr.local.bin.unfortunate.sh ${OVERLAY}/usr/local/bin/unfortunate
