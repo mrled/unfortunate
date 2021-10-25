@@ -106,7 +106,6 @@ You do have to remember to delete your committed container eventually so that it
 
 ## To do
 
-* Hide the video console
 * Save state so that it comes up instantly in the browser
 
 ### Enable Unicode

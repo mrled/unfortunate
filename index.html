@@ -51,26 +51,30 @@ window.onload = function()
 
 <h2>Serial console</h2>
 
-<p>Wait for the virtual machine to boot (see the video console at the bottom), and then use this serial terminal to interact with it.</p>
+<p>Wait for the virtual machine to boot (it may take a few seconds), and then use this serial terminal to interact with it.</p>
 <p>It may take a moment to load this terminal...</p>
 
 <div id="terminal"></div>
 
-<h2>Video console</h2>
+<div id="video-console-section" style="display:none">
 
-<p>You cannot type here, but use this to watch the boot process</p>
+    <h2>Video console</h2>
 
-<!--The video console.
-    Note that the video console does not support true color,
-    so we hide it and just use the serial port ("terminal", above).
-    Uncomment this to show boot messages
--->
-<div id="screen_container">
-    <div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
-    <canvas style="display: none"></canvas>
+    <p>You cannot type here, but use this to watch the boot process</p>
+
+    <!--The video console.
+        Note that the video console does not support true color,
+        so we hide it and just use the serial port ("terminal", above).
+        Uncomment this to show boot messages
+    -->
+    <div id="screen_container">
+        <div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
+        <canvas style="display: none"></canvas>
+    </div>
+
+    <br style="clear: both">
+
 </div>
-
-<br style="clear: both">
 
 <h2>What is this?</h2>
 
