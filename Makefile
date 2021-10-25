@@ -2,6 +2,8 @@
 all: \
 	public/unfortunate.iso \
 	public/index.html \
+	public/favicon.ico \
+	public/_headers \
 	public/build/v86_all.js \
 	public/build/v86_all.js.map \
 	public/build/xterm.js \
