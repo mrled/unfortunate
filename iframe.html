@@ -1,0 +1,56 @@
+<!doctype html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unfortunate</title>
+    <script src="build/v86_all.js"></script>
+    <link rel="stylesheet" href="v86.css">
+
+    <script>
+    "use strict";
+    window.onload = function()
+    {
+        var emulator = window.emulator = new V86Starter({
+            wasm_path: "build/v86.wasm",
+            memory_size: 256 * 1024 * 1024,
+            vga_memory_size: 8 * 1024 * 1024,
+            screen_container: document.getElementById("screen_container"),
+            serial_container_xtermjs: document.getElementById("terminal"),
+            bios: {
+                url: "bios/seabios.bin",
+            },
+            vga_bios: {
+                url: "bios/vgabios.bin",
+            },
+            cdrom: {
+                url: "unfortunate.iso",
+            },
+            autostart: true,
+            disable_speaker: true,
+            disable_keyboard: true,
+        });
+    };
+    </script>
+
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/script.js" data-site="RFPXICWX" defer></script>
+    <!-- / Fathom -->
+</head>
+
+<body>
+    <div id="terminal"></div>
+    <div id="video-console-section" style="display:none">
+        <h2>Video console</h2>
+        <!--The video console.
+            Note that the video console does not support true color,
+            so we hide it and just use the serial port ("terminal", above).
+            Uncomment this to show boot messages
+        -->
+        <div id="screen_container">
+            <div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
+            <canvas style="display: none"></canvas>
+        </div>
+        <br style="clear: both">
+    </div>
+    <p>Powered by <a href="https://unfortunate.micahrl.com">unfortunate</a>.</p>
+</body>

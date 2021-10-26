@@ -1,0 +1,85 @@
+<!doctype html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>Unfortunate</title>
+
+<script src="https://unfortunate.micahrl.com/build/v86_all.js"></script>
+<link rel="stylesheet" href="https://unfortunate.micahrl.com/v86.css">
+
+<script>
+"use strict";
+
+window.onload = function()
+{
+    var emulator = window.emulator = new V86Starter({
+        wasm_path: "https://unfortunate.micahrl.com/build/v86.wasm",
+        memory_size: 256 * 1024 * 1024,
+        vga_memory_size: 8 * 1024 * 1024,
+        screen_container: document.getElementById("screen_container"),
+        serial_container_xtermjs: document.getElementById("terminal"),
+        bios: {
+            url: "https://unfortunate.micahrl.com/bios/seabios.bin",
+        },
+        vga_bios: {
+            url: "https://unfortunate.micahrl.com/bios/vgabios.bin",
+        },
+        cdrom: {
+            url: "https://unfortunate.micahrl.com/unfortunate.iso",
+        },
+        autostart: true,
+        disable_speaker: true,
+        disable_keyboard: true,
+    });
+};
+</script>
+
+</head>
+
+<body>
+
+<h1>An unfortunate test</h1>
+
+<p>Welcome to my cursed browser terminal demo of the fortune files I have created.</p>
+
+<p><a href="https://github.com/mrled/fortunate">Read more about my fortune databases</a>.</p>
+
+<h2>Serial console</h2>
+
+<p>Wait for the virtual machine to boot (it may take a few seconds), and then use this serial terminal to interact with it.</p>
+<p>It may take a moment to load this terminal...</p>
+
+<div id="terminal"></div>
+
+<div id="video-console-section" style="display:none">
+
+    <h2>Video console</h2>
+
+    <p>You cannot type here, but use this to watch the boot process</p>
+
+    <!--The video console.
+        Note that the video console does not support true color,
+        so we hide it and just use the serial port ("terminal", above).
+        Uncomment this to show boot messages
+    -->
+    <div id="screen_container">
+        <div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
+        <canvas style="display: none"></canvas>
+    </div>
+
+    <br style="clear: both">
+
+</div>
+
+<h2>What is this?</h2>
+
+<p>This is a demo that I (<a href="https://me.micahrl.com">Micah</a>) am using to let you play with some <a href="https://github.com/mrled/fortunate">fortune databases</a> I made. It boots a real Linux kernel inside your browser! What. Technology, man.</p>
+
+<p>See the <a href="https://github.com/mrled/unfortunate">source code and build instructions</a> for this site.</p>
+
+<p>This is really booting a Linux kernel in Javascript, thanks to the incredible (and incredibly cursed) <a href="https://github.com/copy/v86">v86 project</a>. You can play with other operating systems and more over <a href="https://copy.sh/v86/">on its website</a>.</p>
+
+<p>The Linux image I am using was built from the very helpful <a href="https://github.com/humphd/browser-vm">browser-vm project</a>, and you should check out the <a href="https://humphd.github.io/browser-shell/">really cool demo</a>.</p>
+
+</body>
