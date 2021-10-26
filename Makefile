@@ -2,6 +2,7 @@
 all: \
 	public/unfortunate.iso \
 	public/index.html \
+	public/iframe.html \
 	public/favicon.ico \
 	public/_headers \
 	public/build/v86_all.js \
@@ -166,9 +167,11 @@ v86/build/v86_all.js v86/build/v86_all.js.map v86/build/xterm.js v86/build/xterm
 #### Copy everything to the public/ directory
 
 public/unfortunate.iso: browser-vm/dist/v86-linux.iso
-	cp browser-vm/dist/v86-linux.iso public/unfortunate.iso
+	cp browser-vm/dist/iframe-linux.iso public/unfortunate.iso
 public/index.html: index.html
 	cp index.html public/index.html
+public/iframe.html: iframe.html
+	cp iframe.html public/iframe.html
 public/favicon.ico: terminal.ico
 	cp terminal.ico public/favicon.ico
 public/_headers: _headers
